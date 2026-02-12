@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BizTrack Mobile</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="dashboardSection" class="app-page active-page">
+        <header>
+            <div class="welcome-text">Welcome back</div>
+            <div class="biz-name" id="businessNameDisplay">Radhey Lassi</div>
+            <button class="settings-btn" onclick="showPage('settingsSection')">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </header>
+
+        <section class="dashboard-grid">
+            <div class="card card-green">
+                <div class="card-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div class="card-label">Total Profit</div>
+                <div class="card-value" id="totalIncomeDisplay">₹ 0</div>
+            </div>
+            <div class="card card-red">
+                <div class="card-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
+                <div class="card-label">Total Expenses</div>
+                <div class="card-value" id="totalExpenseDisplay">₹ 0</div>
+            </div>
+        </section>
+
+        <section class="action-bar">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterTransactions()">
+        </div>
+        
+        <div class="date-filter-box">
+            <input type="date" id="searchDate" onchange="filterTransactions()">
+        </div>
+    </section>
+
+        <div class="list-header">
+            <h3>Recent Transactions</h3>
+        </div>
+
+        <div class="transaction-list" id="transactionList">
+            </div>
+        
+        <button class="fab-btn" onclick="openAddModal()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </section>
+
+
+    <section id="exportSection" class="app-page" style="display: none;">
+        <header>
+            <div class="biz-name">Monthly Report</div>
+            <div class="welcome-text">Daily breakdown (Pivot Style)</div>
+        </header>
+
+        <div class="table-container">
+            <table id="previewTable">
+                <thead id="previewHead">
+                    </thead>
+                <tbody id="previewBody">
+                    </tbody>
+            </table>
+        </div>
+
+        <button class="save-btn" style="background-color: #25D366; margin-top: 20px;" onclick="downloadExcel()">
+            <i class="fa-solid fa-file-excel"></i> Download Excel (.xlsx)
+        </button>
+    </section>
+
+
+    <section id="settingsSection" class="app-page" style="display: none;">
+        <header>
+            <div class="biz-name">Settings</div>
+        </header>
+
+        <div class="settings-group">
+            <label>Business Name</label>
+            <div class="input-row">
+                <input type="text" id="settingBizName" placeholder="Enter Name">
+                <button class="action-btn-small" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+
+        <div class="settings-group">
+            <label>Manage Categories</label>
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="renderCategorySettings('Expense')">Expense</button>
+                <button class="tab-btn" onclick="renderCategorySettings('Profit')">Profit</button>
+            </div>
+            
+            <div class="add-cat-row">
+                <input type="text" id="newCatInput" placeholder="New Category Name">
+                <button class="action-btn-small green" onclick="addNewCategory()">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <div id="categoryList" class="category-list">
+                </div>
+        </div>
+
+        <div class="settings-group danger-zone">
+            <label style="color: #ff5252;">End of Month Actions</label>
+            <p style="font-size:12px; color:#888; margin-bottom:10px;">Export your data first, then click here to start a fresh month.</p>
+            <button class="toggle-btn danger-btn" onclick="clearAllData()">
+                <i class="fa-solid fa-calendar-plus"></i> Start New Month (Clear Data)
+            </button>
+        </div>
+    </section>
+
+
+    <nav class="bottom-nav">
+        <button class="nav-btn active-nav" onclick="showPage('dashboardSection', this)">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('exportSection', this)">
+            <i class="fa-solid fa-table"></i>
+            <span>Export</span>
+        </button>
+        <button class="nav-btn" onclick="showPage('settingsSection', this)">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </button>
+    </nav>
+
+
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Entry</h3>
+                <span class="close-btn" onclick="closeAddModal()">&times;</span>
+            </div>
+            
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" id="inpDate">
+            </div>
+
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="number" id="inpAmount" placeholder="₹ 0">
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <div class="type-toggle">
+                    <button id="btnExpense" class="toggle-btn active" onclick="setType('Expense')">Expense</button>
+                    <button id="btnProfit" class="toggle-btn" onclick="setType('Profit')">Profit</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select id="inpCategory">
+                    </select>
+            </div>
+
+            <button class="save-btn" onclick="saveTransaction()">SAVE TRANSACTION</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
