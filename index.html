@@ -53,9 +53,6 @@
         <div class="transaction-list" id="transactionList">
             </div>
         
-        <button class="fab-btn" onclick="openAddModal()">
-            <i class="fa-solid fa-plus"></i>
-        </button>
     </section>
 
 
@@ -126,13 +123,16 @@
             <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </button>
+        
+        <div class="fab-wrapper">
+            <button class="main-fab" onclick="openAddModal()">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
+
         <button class="nav-btn" onclick="showPage('exportSection', this)">
-            <i class="fa-solid fa-table"></i>
+            <i class="fa-solid fa-file-export"></i>
             <span>Export</span>
-        </button>
-        <button class="nav-btn" onclick="showPage('settingsSection', this)">
-            <i class="fa-solid fa-gear"></i>
-            <span>Settings</span>
         </button>
     </nav>
 

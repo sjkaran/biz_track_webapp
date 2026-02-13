@@ -20,9 +20,16 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     padding: 20px;
-    padding-bottom: 80px; /* Space for FAB */
-    /* Mobile optimization */
+    padding-bottom: 90px;
     -webkit-tap-highlight-color: transparent;
+    
+    /* NEW: Lock width to mobile size */
+    max-width: 480px; 
+    margin: 0 auto; 
+    position: relative;
+    min-height: 100vh;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
 }
 
 /* --- HEADER --- */
@@ -263,35 +270,70 @@ input, select {
     margin-top: 10px;
 }
 
-/* --- BOTTOM NAVIGATION --- */
+/* --- PERFECTED BOTTOM NAV --- */
 .bottom-nav {
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
-    height: 70px;
-    background-color: #1e1e1e;
-    display: flex;
-    justify-content: space-around;
+    max-width: 480px; /* Must match body max-width */
+    height: 75px;
+    background-color: #1a1a1a;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Changed from 4 to 3 perfect columns */
     align-items: center;
     border-top: 1px solid #333;
-    z-index: 90; /* Behind Modal (200), Above Content */
+    z-index: 100;
+    
+    /* Center it on your computer screen */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fab-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.main-fab {
+    position: absolute;
+    top: -25px; /* Lifts it exactly halfway up */
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #00e676, #00c853);
+    border-radius: 50%;
+    border: 6px solid #121212; /* Creates a clean cut-out gap */
+    color: black;
+    font-size: 24px;
+    box-shadow: 0 8px 20px rgba(0, 230, 118, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    z-index: 101;
+}
+
+.main-fab:active {
+    transform: scale(0.9);
 }
 
 .nav-btn {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: #888;
+    font-size: 11px;
+    font-weight: 600;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    cursor: pointer;
+    gap: 4px;
 }
-.nav-btn i { font-size: 20px; }
 
-.nav-btn.active-nav { color: var(--accent-green); }
+.nav-btn i { font-size: 20px; }
+.active-nav { color: #00e676; }
 
 /* --- EXPORT TABLE (Excel Style) --- */
 .table-container {
