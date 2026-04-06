@@ -5,3 +5,6 @@ your a website application that takes your daily expense/income accounting, and 
 
 ### what I am looking for?
 making it more featurable, adding analytical graphs like biz-track desktop app, and make an android app version of it.
+
+visit https://sjkaran.github.io/biz_track_webapp/ for use and review. 
+(open the webapp in smartphone for better experience)
