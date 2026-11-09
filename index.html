@@ -20,7 +20,7 @@
     <section id="dashboardSection" class="app-page active-page">
         <header>
             <div class="welcome-text">Welcome back</div>
-            <div class="biz-name" id="businessNameDisplay">Radhey Lassi</div>
+            <div class="biz-name" id="businessNameDisplay">My Wallet</div>
             <button class="settings-btn" onclick="showPage('settingsSection')">
                 <i class="fa-solid fa-gear"></i>
             </button>
@@ -34,7 +34,7 @@
             </div>
             <div class="card card-red">
                 <div class="card-icon"><i class="fa-solid fa-arrow-trend-down"></i></div>
-                <div class="card-label">Total Expenses</div>
+                <div class="card-label">Total Income</div>
                 <div class="card-value" id="totalExpenseDisplay">₹ 0</div>
             </div>
         </section>
@@ -87,7 +87,7 @@
         </header>
 
         <div class="settings-group">
-            <label>Business Name</label>
+            <label>Name</label>
             <div class="input-row">
                 <input type="text" id="settingBizName" placeholder="Enter Name">
                 <button class="action-btn-small" onclick="saveSettings()">Save</button>

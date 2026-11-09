@@ -1,11 +1,11 @@
 :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
+    --bg-color: #050e03;
+    --card-bg: #13300f;
     --text-primary: #ffffff;
     --text-secondary: #aaaaaa;
-    --accent-green: #00e676; /* Neon Green for Profit */
-    --accent-red: #ff5252;   /* Neon Red for Expense */
-    --accent-blue: #2979ff;
+    --accent-green: #6aea08; /* Neon Green for Profit */
+    --accent-red: #c31e1e;   /* Neon Red for Expense */
+    --accent-blue: #5ae8ed;
     --font-main: 'Poppins', sans-serif;
 }
 

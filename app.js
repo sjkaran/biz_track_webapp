@@ -2,8 +2,8 @@
 let transactions = JSON.parse(localStorage.getItem("bizTransactions")) || [];
 let businessName = localStorage.getItem("bizName") || "My Business";
 let categories = JSON.parse(localStorage.getItem("bizCategories")) || {
-    "Expense": ["Milk", "Fruits", "Vegetables", "Rent", "Other"],
-    "Profit": ["Online Payment", "Cash Sale"]
+    "Expense": ["Traveling", "Food", "Rent", "Entertainment", "Other"],
+    "Profit": ["Online Money", "Cash money"]
 };
 
 let currentType = "Expense"; 
